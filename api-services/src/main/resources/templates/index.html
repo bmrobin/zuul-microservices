@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>MCJUG Spring Boot Demo</title>
+</head>
+<body>
+    <div>
+        <p th:text="${myTextVariable}">Greetings from Spring Boot!</p>
+    </div>
+
+    <form id="person-form" role="form" th:action="@{/person/new}" th:object="${person}" method="post">
+        <label for="firstname">First Name</label>
+        <input type="text" id="firstname" th:field="*{firstName}"/>
+        <label for="lastname">Last Name</label>
+        <input type="text" id="lastname" th:field="*{lastName}"/>
+
+        <input type="submit" value="Save"/>
+    </form>
+
+    <div th:if="${people}">
+        <span>People in Database:</span>
+        <ul>
+            <li th:each="person : ${people}">
+                <a th:href="@{'/person/' + ${person.id}}" th:text="${person.firstName} + ' ' + ${person.lastName}"></a>
+            </li>
+        </ul>
+    </div>
+
+    <form id="delete-form" role="form" th:action="@{/person/delete}" method="get">
+        <input type="submit" value="Delete People"/>
+    </form>
+
+</body>
+</html>
