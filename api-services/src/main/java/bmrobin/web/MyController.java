@@ -1,7 +1,9 @@
 package bmrobin.web;
 
+import bmrobin.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,37 +15,37 @@ import java.util.List;
 /**
  * @author brobinson
  */
-@Controller
+@RestController
+@RequestMapping(value = "/person")
 public class MyController {
 
+    private final MyService service;
+
     @Autowired
-    private MyService service;
+    public MyController(MyService service) {
+        this.service = service;
+    }
 
     @RequestMapping("/")
-    public String index(Model model) {
-        String myTextVariable = "Hello MCJUG!";
-        Person person = new Person();
-        List<Person> people = service.findPeople();
-        model.addAttribute("people", people);
-        model.addAttribute("person", person);
-        return "index";
+    public List<Person> index() {
+        return service.findPeople();
     }
 
-    @RequestMapping(value = "/person/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public String getPerson(@PathVariable Long id) {
-        Person retrievedPerson = service.findPerson(id);
-        return "Meet " + retrievedPerson.getFirstName() + " " + retrievedPerson.getLastName();
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Person getPerson(@PathVariable Long id) throws NotFoundException {
+        return service.findPerson(id);
     }
 
-    @RequestMapping(value = "/person/new", method = RequestMethod.POST)
+    @RequestMapping(value = "/new",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public Person savePerson(@ModelAttribute Person person) {
+    public Person savePerson(@RequestBody Person person) {
         return service.savePerson(person);
     }
 
-    @RequestMapping(value = "/person/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public void deletePeople() {
         service.deletePeople();

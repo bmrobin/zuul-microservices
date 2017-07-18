@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+zuul:
+  routes:
+    person:
+      path: /person/**
+      url: http://localhost:9090/person
+
+ribbon:
+  eureka:
+    enabled: false

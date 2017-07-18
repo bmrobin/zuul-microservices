@@ -1,6 +1,7 @@
 package bmrobin.service;
 
 import bmrobin.data.Person;
+import bmrobin.exception.NotFoundException;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
 public interface MyService {
 
     Person savePerson(Person person);
-    Person findPerson(Long id);
+    Person findPerson(Long id) throws NotFoundException;
     List<Person> findPeople();
     void deletePeople();
 
