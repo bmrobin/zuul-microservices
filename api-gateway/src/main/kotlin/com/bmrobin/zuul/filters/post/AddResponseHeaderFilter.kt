@@ -19,11 +19,11 @@ class AddResponseHeaderFilter: ZuulFilter() {
         return true
     }
 
-    override fun run(): Any {
+    override fun run(): Any? {
         val context: RequestContext = RequestContext.getCurrentContext()
         val response: HttpServletResponse = context.response
         val rand: Random = Random()
         response.addHeader("X-BMROBIN", rand.nextInt().toString())
-        return Any()
+        return null
     }
 }

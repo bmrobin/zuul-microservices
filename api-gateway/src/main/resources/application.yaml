@@ -1,12 +1,15 @@
 server:
   port: 8080
 
-zuul:
-  routes:
-    person:
-      path: /person/**
-      url: http://localhost:9090/person
+spring:
+  application:
+    name: zuul-service
 
 ribbon:
   eureka:
     enabled: false
+
+zuul:
+  routes:
+    person:
+      url: http://user-service:9090/person/

@@ -1,0 +1,4 @@
+zuul:
+  routes:
+    person:
+      url: http://localhost:9090/person/
