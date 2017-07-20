@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class FiltersConfig {
 
-//    @Bean
-//    fun serviceRequestFilter(): ServiceRequestFilter {
-//        return ServiceRequestFilter()
-//    }
+    @Bean
+    fun serviceRequestFilter(): ServiceRequestFilter {
+        return ServiceRequestFilter()
+    }
 
     @Bean
     fun addResponseHeaderFilter(): AddResponseHeaderFilter {

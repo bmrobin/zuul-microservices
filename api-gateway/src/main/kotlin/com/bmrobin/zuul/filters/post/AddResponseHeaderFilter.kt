@@ -2,7 +2,7 @@ package com.bmrobin.zuul.filters.post
 
 import com.netflix.zuul.ZuulFilter
 import com.netflix.zuul.context.RequestContext
-import java.util.*
+import java.util.Random
 import javax.servlet.http.HttpServletResponse
 
 class AddResponseHeaderFilter: ZuulFilter() {
